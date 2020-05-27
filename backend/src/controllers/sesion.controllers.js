@@ -16,19 +16,22 @@ UserCtrl.getUsers = async (req, res) => {
 
 UserCtrl.createUser = async (req, res) => {
     
-        var matricula=req.body.matricula;
-        var contrasena=req.body.contraseña;
-       var rol = "Alumno";
+        var name=req.body.name;
+        var last_name=req.body.last_name;
+        var phone = req.body.phone;
+        var city = req.body.city;
+        var country= req.body.country;
+        var image_profile= req.file;
+      console.log(image_profile)
       var values=[
-          [matricula,contrasena,rol]
+          [name,last_name,phone,city,country,image_profile.path]
       ]
       console.log(values);
-      con.query("INSERT INTO sesion (matricula, contrasena, rol) VALUES ?",[values],(err,rows,fields)=>{
+      con.query("INSERT INTO users (name, last_name, phone, city, country, image_profile) VALUES ?",[values],(err,rows,fields)=>{
         if(!err){
-         //res.json(rows)
-         res.send("guardado");
+         res.json(rows)
+         //res.send(rows);
         }else{
-            
             console.log(err);
         }
     })
@@ -46,9 +49,17 @@ UserCtrl.getUser = async (req, res) => {
     })
     
 }
-UserCtrl.sesionUser = async (req, res)=>{
+//Donde inicia Sesion 
+UserCtrl.sesionLogin = async (req, res)=>{
   
-    
+    con.query('SELECT * FROM sesion WHERE matricula=?',[req.params.matricula],(err,rows,fields)=>{
+        if(!err){
+         res.json(rows)
+         //res.send(rows);
+        }else{
+            res.send("No existe en la BD en la tabla sesion")
+        }
+    })
 }
 UserCtrl.DeleteUser = async (req, res) => {
     con.query('DELETE FROM users WHERE id=?',[req.params.id],(err,rows,fields)=>{

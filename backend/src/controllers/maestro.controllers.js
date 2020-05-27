@@ -49,7 +49,7 @@ UserCtrl.getUser = async (req, res) => {
     })
     
 }
-UserCtrl.findUser = async (req, res)=>{
+UserCtrl.sesionUser = async (req, res)=>{
   
     
 }

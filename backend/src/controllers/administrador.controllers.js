@@ -49,9 +49,17 @@ UserCtrl.getUser = async (req, res) => {
     })
     
 }
-UserCtrl.findUser = async (req, res)=>{
+//Donde inicia Sesion 
+UserCtrl.sesionUser = async (req, res)=>{
   
-    
+    con.query('SELECT * FROM users WHERE matricula=?',[req.params.matricula],(err,rows,fields)=>{
+        if(!err){
+         res.json(rows)
+         //res.send(rows);
+        }else{
+            res.send("No existe en la BD de Administrador")
+        }
+    })
 }
 UserCtrl.DeleteUser = async (req, res) => {
     con.query('DELETE FROM users WHERE id=?',[req.params.id],(err,rows,fields)=>{

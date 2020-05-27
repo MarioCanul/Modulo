@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
 const router = Router();
-const { createUser, getUser, getUsers, sesionUser,updateUser, DeleteUser } = require('../controllers/maestro.controllers');
+const { createUser, getUser, getUsers, sesionLogin,updateUser, DeleteUser } = require('../controllers/sesion.controllers');
 router.route('/')
     .get(getUsers)
     .post(createUser)
@@ -9,6 +9,6 @@ router.route('/:id')
     .get(getUser)
     .put(updateUser)
     .delete(DeleteUser)
-    router.route('/sesion/')
-    .get(sesionUser)
+    router.route('/login/:matricula')
+    .get(sesionLogin)
 module.exports = router;
