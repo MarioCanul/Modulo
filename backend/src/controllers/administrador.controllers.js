@@ -2,8 +2,8 @@ const con = require('../database')
 
 const UserCtrl = {};
 
-UserCtrl.getUsers = async (req, res) => {
-   con.query("SELECT * FROM users",(err,rows,fields)=>{
+UserCtrl.getCursos = async (req, res) => {
+   con.query("SELECT * FROM curso",(err,rows,fields)=>{
        if(!err){
         res.json(rows)
         //res.send(rows);
@@ -14,22 +14,24 @@ UserCtrl.getUsers = async (req, res) => {
   
 };
 
-UserCtrl.createUser = async (req, res) => {
+UserCtrl.createCurso = async (req, res) => {
     
-        var name=req.body.name;
-        var last_name=req.body.last_name;
-        var phone = req.body.phone;
-        var city = req.body.city;
-        var country= req.body.country;
-        var image_profile= req.file;
-      console.log(image_profile)
+        var Curso=req.body.Curso;
+        var Nivel=req.body.Nivel;
+        var Salon=req.body.Salon;
+        var Cantidad = req.body.Cantidad;
+        var Maestro = req.body.Maestro;
+        var fechaI= req.body.fechaI;
+        var fechaT= req.body.fechaT;
+        var hora= req.body.hora;
+      
       var values=[
-          [name,last_name,phone,city,country,image_profile.path]
+          [Curso,Nivel,Salon,Cantidad,Maestro,fechaI,fechaT,hora]
       ]
       console.log(values);
-      con.query("INSERT INTO users (name, last_name, phone, city, country, image_profile) VALUES ?",[values],(err,rows,fields)=>{
+      con.query("INSERT INTO curso (Curso, Nivel_Curso,Salon,CatidadPersonas, Maestro, Finicio, Ftermino,Horario) VALUES ?",[values],(err,rows,fields)=>{
         if(!err){
-         res.json(rows)
+         res.json("guardado")
          //res.send(rows);
         }else{
             console.log(err);
@@ -61,8 +63,8 @@ UserCtrl.sesionUser = async (req, res)=>{
         }
     })
 }
-UserCtrl.DeleteUser = async (req, res) => {
-    con.query('DELETE FROM users WHERE id=?',[req.params.id],(err,rows,fields)=>{
+UserCtrl.DeleteCurso = async (req, res) => {
+    con.query('DELETE FROM curso WHERE Id_Curso=?',[req.params.id],(err,rows,fields)=>{
         if(!err){
          res.json(rows)
          //res.send(rows);

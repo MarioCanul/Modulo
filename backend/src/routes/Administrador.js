@@ -1,14 +1,14 @@
 const { Router } = require('express');
 
 const router = Router();
-const { createUser, getUser, getUsers, sesionUser,updateUser, DeleteUser } = require('../controllers/administrador.controllers');
+const { createCurso, getUser, getCursos, sesionUser,updateUser, DeleteCurso } = require('../controllers/administrador.controllers');
 router.route('/')
-    .get(getUsers)
-    .post(createUser)
+    .get(getCursos)
+    .post(createCurso)
 router.route('/:id')
     .get(getUser)
     .put(updateUser)
-    .delete(DeleteUser)
+    .delete(DeleteCurso)
     router.route('/sesion/:matricula')
     .get(sesionUser)
 module.exports = router;
