@@ -69,7 +69,7 @@ switch(rol){
     this.setState({
       SesionExitosa:false,
     });
-    window.location='/Administrador';
+    window.location='/Administrador/';
     break;
   case 'Alumno':
     setCookie('Cmatricula',matricula,1)
@@ -77,7 +77,7 @@ switch(rol){
     this.setState({
       SesionExitosa:false,
     });
-    window.location='/Alumno';
+    window.location='/Alumno/';
     break; 
   case 'Maestro':
     setCookie('Cmatricula',matricula,1)
@@ -85,7 +85,7 @@ switch(rol){
     this.setState({
       SesionExitosa:false,
     });
-    window.location='/Maestro';
+    window.location='/Maestro/';
     break;
     default : return console.log("No hay Rol")   
 }
@@ -94,9 +94,9 @@ switch(rol){
   }
 
   render(){
-    var modalRegis = this.state.Registrar == true ? <Registro cerrar={this.handleClose}/> :'';
-    var modalExitosa = this.state.SesionExitosa == true ? <Exitosa cerrar={this.link}/>:'';
-    var modalNoExitosa = this.state.SesionnoExitosa == true ? <NoExitosa cerrar={this.handleClose}/>:'';
+    var modalRegis = this.state.Registrar === true ? <Registro cerrar={this.handleClose}/> :'';
+    var modalExitosa = this.state.SesionExitosa === true ? <Exitosa cerrar={this.link}/>:'';
+    var modalNoExitosa = this.state.SesionnoExitosa === true ? <NoExitosa cerrar={this.handleClose}/>:'';
   return (
     <Router>
       {modalRegis}

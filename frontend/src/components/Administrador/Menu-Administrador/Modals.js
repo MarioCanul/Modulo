@@ -119,7 +119,7 @@ this.props.cursos(e);
                     selected={this.state.startDate}
                     onChange={date => this.setState({startDate:date})}
                     selectsStart
-                    
+                    dateFormat="dd-MM-yyyy"
                     startDate={this.state.startDate}
                     endDate={this.state.endDate}
                      />
@@ -130,7 +130,7 @@ this.props.cursos(e);
                     selected={this.state.endDate}
                     onChange={date => this.setState({endDate:date})}
                     selectsEnd
-                    
+                    dateFormat="dd-MM-yyyy"
                     id="label2"
                     startDate={this.statestartDate}
                     endDate={this.state.endDate}
@@ -145,8 +145,8 @@ this.props.cursos(e);
                 showTimeSelectOnly
                 timeIntervals={15}
                 timeCaption="Time"
-                // timeFormat="hh:mm:ss aa"
-                dateFormat="hh:mm:ss aa"
+                timeFormat="HH:mm"
+                dateFormat="HH:mm"
                 />
                     <br/><br/>
                   </form>
@@ -165,9 +165,7 @@ this.props.cursos(e);
       }
 }
 export class EliminarCurso extends Component{ 
-    constructor(props){
-        super(props)
-    }  
+   
     delete =() =>{
         // e.preventDefault();
         console.log(this.props.Data)
@@ -208,31 +206,34 @@ export class ModificarCurso extends Component{
     constructor(props){
         super(props)
         this.state={
-            endDate: new Date(),
-            startDate: new Date(),
-            TimeDate:new Date(),
-            age:"",
+          endDate:moment(this.props.Data.Ftermino).toDate() ,
+          startDate:moment(this.props.Data.Finicio).toDate() ,
+          
+           TimeDate: new Date(`2011-07-14 ${this.props.Data.Horario}`),
+          age:"",
+          // Finicio:this.props.Data.Finicio,
+          // Horario:this.props.Data.Horario,
+          
+         
             Curso:this.props.Data.Curso,
             Nivel_Curso:this.props.Data.Nivel_Curso,
             Salon:this.props.Data.Salon,
             CatidadPersonas:this.props.Data.CatidadPersonas,
             Maestro:this.props.Data.Maestro,
-            Finicio:this.props.Data.Finicio,
-            Ftermino:this.props.Data.Ftermino,
-            Horario:this.props.Data.Horario
         }
     } 
     onSubmit = async (e) => {
         e.preventDefault();
+        var id = this.props.Data.Id_Curso;
         let Curso = this.state.Curso
         let Nivel = this.state.Nivel_Curso
         let Salon = this.state.Salon
         let Cantidad = this.state.CatidadPersonas
         let Maestro = this.state.Maestro
-        var fechaI =this.state.Finicio
-        var fechaT =this.state.Ftermino
-        var hora =moment(this.state.Horario).format('hh:mm:ss');
-       const res = await Axios.post('http://localhost:4000/modulo/Administrador/', {
+        var fechaI =this.state.startDate
+        var fechaT =this.state.endDate
+        var hora =moment(this.state.TimeDate).format('hh:mm:ss');
+       const res = await Axios.put('http://localhost:4000/modulo/Administrador/'+id, {
             Curso,
             Nivel,
             Salon,
@@ -246,7 +247,7 @@ export class ModificarCurso extends Component{
           if(res.data ==="guardado"){
 console.log("Exitoso");
 this.props.cerrar();
-this.props.cursos(e);
+this.props.cursos();
           }
           else{
               console.log("No se logro Guardar");
@@ -313,42 +314,50 @@ this.props.cursos(e);
                       fullWidth 
                     /><br/><br/>
                      <InputLabel  >Fecha de Inicio del Curso Anterior {moment(this.state.Finicio).format('DD-MM-YYYY')}</InputLabel>
+                     {/* <InputLabel  >Fecha de Inicio del Curso Anterior {this.state.startDate}</InputLabel> */}
+                     <InputLabel  >Fecha de Inicio del Curso Anterior {this.state.Finicio}</InputLabel>
                     <InputLabel  htmlFor="label2">Fecha de Inicio del Curso</InputLabel>
                     <DatePicker
                     id="label2"
                     className="Datepicker"
+                    // selected={moment(this.state.startDate).toDate()}
                     selected={this.state.startDate}
                     onChange={date => this.setState({startDate:date})}
                     selectsStart
-                    
+                    dateFormat="dd-MM-yyyy"
                     startDate={this.state.startDate}
                     endDate={this.state.endDate}
                      />
                     <br/><br/>
-                    <InputLabel  >Fecha de Inicio del Curso Anterior {moment(this.state.Ftermino).format('DD-MM-YYYY')}</InputLabel>
+                    <InputLabel  >Fecha de Termino del Curso Anterior {moment(this.state.Ftermino).format('DD-MM-YYYY')}</InputLabel>
                     <InputLabel  htmlFor="label">Fecha de Termino del Curso</InputLabel>
                      <DatePicker
                      className="Datepicker"
+                
                     selected={this.state.endDate}
                     onChange={date => this.setState({endDate:date})}
                     selectsEnd
-               
+                    dateFormat="dd-MM-yyyy"
                     id="label2"
                     startDate={this.state.startDate}
                     endDate={this.state.endDate}
                     minDate={this.state.startDate}
                 /><br/><br/>
-                <InputLabel  >Fecha de Inicio del Curso Anterior {(this.state.Horario)}</InputLabel>
+                {/* <InputLabel  >Hora de Inicio del Curso Anterior {(this.state.TimeDate)}</InputLabel> */}
+                {/* <InputLabel  >Hora de Inicio del Curso Anterior {(this.state.vtest)}</InputLabel> */}
                 <InputLabel  htmlFor="label">Horario del Curso</InputLabel>
                 <DatePicker
                 className="Datepicker"
-                selected={this.state.hora}
-                onChange={date => this.setState({hora:date})}
+                // selected={moment(this.state.Horario).toDate()}
+                selected={this.state.TimeDate}
+                onChange={date => this.setState({TimeDate:date})}
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={15}
                 timeCaption="Time"
-                dateFormat="hh:mm:ss aa"
+                timeFormat="HH:mm"
+                dateFormat="HH:mm"
+                // dateFormat="hh:mm:ss aa"
                 />
                     <br/><br/>
                   </form>

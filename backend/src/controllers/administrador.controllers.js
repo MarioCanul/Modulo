@@ -75,21 +75,22 @@ UserCtrl.DeleteCurso = async (req, res) => {
     
 }
 
-UserCtrl.updateUser = async (req, res) => {
-    var name=req.body.name;
-        var last_name=req.body.last_name;
-        var phone = req.body.phone;
-        var city = req.body.city;
-        var country= req.body.country;
-        var image_profile= req.file;
-      console.log(image_profile)
-      var values=[
-          [name,last_name,phone,city,country,image_profile.path,req.params.id]
-      ]
+UserCtrl.updateCurso = async (req, res) => {
+    var Curso=req.body.Curso;
+    var Nivel=req.body.Nivel;
+    var Salon=req.body.Salon;
+    var Cantidad = req.body.Cantidad;
+    var Maestro = req.body.Maestro;
+    var fechaI= req.body.fechaI;
+    var fechaT= req.body.fechaT;
+    var hora= req.body.hora;
+    var values=[
+        [Curso,Nivel,Salon,Cantidad,Maestro,fechaI,fechaT,hora]
+    ]
      
-      con.query("UPDATE users set name=? ,last_name=?, phone=?, city=?, country=?, image_profile=? WHERE id=?",[name,last_name,phone,city,country,image_profile.path,req.params.id],(err,rows,fields)=>{
+      con.query("UPDATE curso set Curso=? ,Nivel_Curso=?, Salon=?, CatidadPersonas=?, Maestro=?, Finicio=?,Ftermino=?,Horario=? WHERE Id_Curso=?",[Curso,Nivel,Salon,Cantidad,Maestro,fechaI,fechaT,hora,req.params.id],(err,rows,fields)=>{
         if(!err){
-         res.json(rows)
+         res.json("guardado")
          //res.send(rows);
         }else{
             console.log(err);

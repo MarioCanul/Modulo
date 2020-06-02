@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
+import { setCookie,deleteCookie } from '../../Cookies';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import LibraryBooksTwoToneIcon from '@material-ui/icons/LibraryBooksTwoTone';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -16,6 +18,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 // import Footer from './Footer'
+
+import CancelIcon from '@material-ui/icons/Cancel';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import BookIcon from '@material-ui/icons/Book';
@@ -91,6 +95,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0),
   },
 }));
+function closeSession(){
+deleteCookie("Cmatricula");
+window.location='/';
+}
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
@@ -148,13 +156,13 @@ export default function MiniDrawer() {
           </div>
           <Divider />
           <List>
-            <Tooltip title="Inicio" >
+            <Tooltip title="Cursos" >
               <ListItem 
                 button
                 component={Link}
-                to="/Administrador/Cursos"
+                to="/Administrador/"
               >
-                <ListItemIcon><HomeIcon/></ListItemIcon>
+                <ListItemIcon><LibraryBooksTwoToneIcon/></ListItemIcon>
                 <ListItemText primary="Cursos" />
               </ListItem>
             </Tooltip>
@@ -203,7 +211,20 @@ export default function MiniDrawer() {
                 to="/Administrador/Nosotros"
               >
                 <ListItemIcon><ContactSupportIcon /></ListItemIcon>
-                <ListItemText primary="Nosotros" />
+                <ListItemText primary="Cerrar Sesion" />
+              </ListItem>
+            </Tooltip>
+          </List>
+          <List>
+            <Tooltip title="Cerrar Sesion" >
+              <ListItem 
+                button
+                onClick={closeSession}
+                
+                
+              >
+                <ListItemIcon><CancelIcon /></ListItemIcon>
+                <ListItemText primary="Cerrar Sesion" />
               </ListItem>
             </Tooltip>
           </List>
@@ -211,11 +232,12 @@ export default function MiniDrawer() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/Administrador/Cursos" exact component={Cursos} />
+          <Route path="/Administrador/" exact component={Cursos} />
             <Route path="/Administrador/Buscador" exact component={Opcion2} />
             <Route path="/Administrador/Glosario" exact component={Opcion3} />
             <Route path="/Administrador/Mi_Cuenta" exact component={Opcion4} />
             <Route path="/Administrador/Nosotros" exact component={Opcion5} />
+            
             <div className="padd"></div>
             {/* <Footer /> */}
         </main>

@@ -3,8 +3,11 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
+import { setCookie,deleteCookie } from '../../Cookies';
+import LibraryBooksTwoToneIcon from '@material-ui/icons/LibraryBooksTwoTone';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import CancelIcon from '@material-ui/icons/Cancel';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -22,7 +25,7 @@ import BookIcon from '@material-ui/icons/Book';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { BrowserRouter as Router, Route , Link,} from 'react-router-dom';
-import Opcion1 from './Menu-Alumno/Opcion-Alumno';
+import Cursos from './Menu-Alumno/Opcion-Cursos';
 import Opcion2 from './Menu-Alumno/Opcion-Alumno2';
 import Opcion3 from './Menu-Alumno/Opcion-Alumno3';
 import Opcion4 from './Menu-Alumno/Opcion-Alumno4';
@@ -91,6 +94,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0),
   },
 }));
+function closeSession(){
+  deleteCookie("Cmatricula");
+  window.location='/';
+  }
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
@@ -148,14 +155,14 @@ export default function MiniDrawer() {
           </div>
           <Divider />
           <List>
-            <Tooltip title="Inicio" >
+            <Tooltip title="Cursos" >
               <ListItem 
                 button
                 component={Link}
-                to="/"
+                to="/Alumno/"
               >
-                <ListItemIcon><HomeIcon/></ListItemIcon>
-                <ListItemText primary="Inicio" />
+                <ListItemIcon><LibraryBooksTwoToneIcon/></ListItemIcon>
+                <ListItemText primary="Cursos" />
               </ListItem>
             </Tooltip>
           </List>
@@ -196,14 +203,15 @@ export default function MiniDrawer() {
             </Tooltip>
           </List>
           <List>
-            <Tooltip title="Nosotros" >
+            <Tooltip title="Cerrar Sesion" >
               <ListItem 
                 button
-                component={Link}
-                to="/Nosotros"
+                onClick={closeSession}
+                
+                
               >
-                <ListItemIcon><ContactSupportIcon /></ListItemIcon>
-                <ListItemText primary="Nosotros" />
+                <ListItemIcon><CancelIcon /></ListItemIcon>
+                <ListItemText primary="Cerrar Sesion" />
               </ListItem>
             </Tooltip>
           </List>
@@ -211,7 +219,7 @@ export default function MiniDrawer() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/" exact component={Opcion1} />
+          <Route path="/Alumno/" exact component={Cursos} />
             <Route path="/Buscador" exact component={Opcion2} />
             <Route path="/Glosario" exact component={Opcion3} />
             <Route path="/Mi_Cuenta" exact component={Opcion4} />
