@@ -3,14 +3,27 @@ import Axios from 'axios';
 import { format } from 'timeago.js'
 import { Link } from 'react-router-dom'
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import Modals from './modal/Modals'
 export default class Cursos extends Component {
-   
-    state = {
-        data: []
-    }
+   constructor(props){
+       super(props)
+    this.handleClose=this.handleClose.bind(this);
+  this.CrearC=this.CrearC.bind(this);
+       this.state = {
+           data: [],
+           CrearC:false,
+           ItemSelect:''
+       }
+   }
 
     async componentDidMount() {
         this.getCursos();
+    }
+    handleClose(){
+        console.log("entro a handle")
+        this.setState  ({
+            CrearC:false
+        })
     }
 
     getCursos = async () => {
@@ -20,14 +33,18 @@ export default class Cursos extends Component {
         });
     }
 
-    deleteNote = async (noteId) => {
-        await Axios.delete('http://localhost:4000/api/notes/' + noteId);
-        this.getNotes();
+    CrearC = async (Curso) => {
+       this.setState({
+           ItemSelect:Curso,
+           CrearC:true
+       })
     }
 
     render() {
+        var modalCupo = this.state.CrearC === true ? <Modals data={this.state.ItemSelect} exit={this.handleClose}/> :'';
         return (
             <div className="row">
+                {modalCupo}
                 {
                     this.state.data.map(Curso => (
                         <div className="col-md-4 p-2" key={Curso.Id_Curso}>
@@ -55,8 +72,8 @@ export default class Cursos extends Component {
                                     </p>
                                 </div>
                                 <div className="card-footer">
-                                    <button className="btn btn-danger" onClick={() => this.deleteNote(Curso._id)}>
-                                        Delete
+                                    <button className="btn btn-danger" onClick={() => this.CrearC(Curso)}>
+                                       Crear Cupo
                                     </button>
                                 </div>
                             </div>

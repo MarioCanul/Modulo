@@ -143,7 +143,7 @@ this.props.cursos(e);
                 onChange={date => this.setState({TimeDate:date})}
                 showTimeSelect
                 showTimeSelectOnly
-                timeIntervals={15}
+                timeIntervals={30}
                 timeCaption="Time"
                 timeFormat="HH:mm"
                 dateFormat="HH:mm"
@@ -353,7 +353,7 @@ this.props.cursos();
                 onChange={date => this.setState({TimeDate:date})}
                 showTimeSelect
                 showTimeSelectOnly
-                timeIntervals={15}
+                timeIntervals={30}
                 timeCaption="Time"
                 timeFormat="HH:mm"
                 dateFormat="HH:mm"

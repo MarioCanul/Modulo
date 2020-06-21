@@ -134,7 +134,7 @@ export default class OpcionCursos extends Component {
                   <TableRow>
                     <TableCell>Curso</TableCell>
                     <TableCell>Nivel</TableCell>
-                    <TableCell>Salon</TableCell>
+                    <TableCell>Salon </TableCell>
                     <TableCell>Cantidad de Personas</TableCell>
                     <TableCell>Horario</TableCell>
                     <TableCell>Maestro</TableCell>
